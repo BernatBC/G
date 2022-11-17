@@ -15,7 +15,7 @@ void ModelInfo1::preFrame()
 
 void ModelInfo1::postFrame()
 {
-	cout << "Objectes: " << objectes << " Poligons: " << faces << " Vertexs: " << vertices << " Percentatge triangles: " << 100*float(triangles)/faces << endl;
+	
 }
 
 void ModelInfo1::onObjectAdd()
@@ -50,17 +50,16 @@ void ModelInfo1::mouseMoveEvent(QMouseEvent *)
 
 void ModelInfo1::calculateInfo() {
 	vector<Object> o = scene()->objects();
-	objectes = o.size();
-	vertices = 0;
+	int objectes = o.size();
+	int vertices = 0;
+	int faces = 0;
+	int triangles = 0;
 	for (int i = 0; i < objectes; ++i) {
 		vertices += o[i].vertices().size();
-	}
-	faces = 0;
-	triangles = 0;
-	for (int i = 0; i < objectes; ++i) {
 		vector<Face> f = o[i].faces();
 		faces += f.size();
 		for (int j = 0; j < f.size(); ++j) if (f[j].numVertices() == 3) ++triangles;
 	}
+	cout << "Objectes: " << objectes << " Poligons: " << faces << " Vertexs: " << vertices << " Percentatge triangles: " << 100*float(triangles)/faces << endl;
 }
 

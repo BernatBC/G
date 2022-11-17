@@ -25,10 +25,6 @@ class ModelInfo1: public QObject, public Plugin
 	 void mouseMoveEvent(QMouseEvent *);
   private:
 	// add private methods and attributes here
-	int objectes = 0;
-	int vertices = 0;
-	int faces = 0;
-	int triangles = 0;
 
 	void calculateInfo();
 };

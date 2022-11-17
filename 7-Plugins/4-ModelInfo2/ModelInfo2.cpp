@@ -65,12 +65,10 @@ void ModelInfo2::calculateInfo() {
 	vector<Object> o = scene()->objects();
 	objectes = o.size();
 	vertices = 0;
-	for (int i = 0; i < objectes; ++i) {
-		vertices += o[i].vertices().size();
-	}
 	faces = 0;
 	triangles = 0;
 	for (int i = 0; i < objectes; ++i) {
+		vertices += o[i].vertices().size();
 		vector<Face> f = o[i].faces();
 		faces += f.size();
 		for (int j = 0; j < f.size(); ++j) if (f[j].numVertices() == 3) ++triangles;
