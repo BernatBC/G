@@ -47,61 +47,30 @@ void DrawBoundingBox::onPluginLoad()
 
 void DrawBoundingBox::postFrame() { 
     program->bind();
-    
-    // crear buffers
     GLWidget& g = *glwidget();
     g.makeCurrent();
     if (!created) {
         created=true;
         // dades
         GLfloat cube_vertices[]={
-            0,0,0,
-            0,0,1,
-            0,1,0,
-            
-            0,0,1,
-            0,1,0,
-            0,1,1,
-            
-            1,0,0,
-            1,0,1,
-            1,1,0,
-            
-            1,0,1,
-            1,1,0,
-            1,1,1,
-            
-            0,0,0,
-            0,0,1,
-            1,0,0,
-            
-            0,0,1,
-            1,0,0,
-            1,0,1,
-            
-            0,1,0,
-            0,1,1,
-            1,1,0,
-            
-            0,1,1,
-            1,1,0,
-            1,1,1,
-            
-            0,0,0,
-            0,1,0,
-            1,0,0,
-            
-            0,1,0,
-            1,0,0,
-            1,1,0,
-            
-            0,0,1,
-            0,1,1,
-            1,0,1,
-            
-            0,1,1,
-            1,0,1,
-            1,1,1
+            //Esquerra
+            0,0,0,  0,0,1,  0,1,0,
+            0,0,1,  0,1,0,  0,1,1,
+            //Dreta
+            1,0,0,  1,0,1,  1,1,0,
+            1,0,1,  1,1,0,  1,1,1,
+            //Baix
+            0,0,0,  0,0,1,  1,0,0,
+            0,0,1,  1,0,0,  1,0,1,
+            //Dalt
+            0,1,0,  0,1,1,  1,1,0,
+            0,1,1,  1,1,0,  1,1,1,
+            //Davant
+            0,0,0,  0,1,0,  1,0,0,
+            0,1,0,  1,0,0,  1,1,0,
+            //Darrere
+            0,0,1,  0,1,1,  1,0,1,
+            0,1,1,  1,0,1,  1,1,1
         };
         GLfloat cube_colors[108];
         for (int i = 0; i < 108; i += 3) {
@@ -110,11 +79,9 @@ void DrawBoundingBox::postFrame() {
             cube_colors[i + 2] = 0.6;
         }
 
-        // VAO Capsa
         g.glGenVertexArrays(1, &cubeVAO);
         g.glBindVertexArray(cubeVAO);
         
-        // VBOs Capsa  
         g.glGenBuffers(1, &verticesVBO);
         g.glBindBuffer(GL_ARRAY_BUFFER, verticesVBO);
         g.glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), cube_vertices, GL_STATIC_DRAW);
@@ -130,7 +97,7 @@ void DrawBoundingBox::postFrame() {
         g.glBindVertexArray(0);    
     }
     
-    // establir modelViewProjection
+    //Uniforms
     QMatrix4x4 MVP=camera()->projectionMatrix()*camera()->viewMatrix();
     program->setUniformValue("modelViewProjectionMatrix", MVP);
     
